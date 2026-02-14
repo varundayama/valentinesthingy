@@ -241,6 +241,7 @@
         .no-btn {
             background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
             color: #4B5563;
+            position: absolute;
             transition: all 0.15s;
         }
 
@@ -308,8 +309,6 @@
             box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
             animation: explode 1s ease-out;
             display: block;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .dog-image {
@@ -320,15 +319,6 @@
             margin: 20px auto;
             display: block;
             box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        /* Force GIF animation on all devices */
-        .dog-image, .mind-blown-meme {
-            image-rendering: auto;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
         }
 
         @media (max-width: 768px) {
@@ -397,14 +387,14 @@
 
     <div class="container" id="questionScreen">
         <h1>💕 Valentine's Day 💕</h1>
-        <img src="https://media1.tenor.com/images/Vg9ZUFb2XxgAAAAC/perro.gif" alt="Cute dog" class="dog-image" loading="eager">
+        <img src="https://media1.tenor.com/m/Vg9ZUFb2XxgAAAAd/perro.gif" alt="Cute dog" class="dog-image">
         <p class="question">
             Hey <span class="name">Kesha</span>! 💖<br>
             Will you be my Valentine?
         </p>
         <div class="buttons">
             <button class="yes-btn" onclick="celebrate()">Yes! 💕</button>
-            <button class="no-btn" id="noBtn" onmouseover="runAway(event)" onclick="runAway(event); return false;">No 😢</button>
+            <button class="no-btn" id="noBtn" onmouseover="runAway()" onclick="runAway()">No 😢</button>
         </div>
     </div>
 
@@ -413,10 +403,10 @@
         <p class="celebration-message">
             I knew you'd say yes! 😍<br>
             I mean... the "No" button was a lil shy! 😂<br>
-            Now get ready for a zillion hugs, terrible jokes, and me being annoyingly cute! 💕<br>
+            Now get ready for unlimited cuddles, terrible jokes, and me being annoyingly cute! 💕<br>
             Warning: May cause excessive happiness and spontaneous smiling! ⚠️
         </p>
-        <img src="https://media1.tenor.com/images/OEQ8NOhu2nwAAAAC/mind-blown-mind-explosion.gif" alt="Mind Blown!" class="mind-blown-meme" loading="eager">
+        <img src="https://media.tenor.com/OEQ8NOhu2nwAAAAj/mind-blown-mind-explosion.gif" alt="Mind Blown!" class="mind-blown-meme">
     </div>
 
     <script>
@@ -438,26 +428,17 @@
         const noBtn = document.getElementById('noBtn');
         let noBtnClicks = 0;
 
-        // Add touch support for mobile
-        noBtn.addEventListener('touchstart', function(e) {
-            runAway(e);
-        }, { passive: false });
-
-        function runAway(event) {
-            // Prevent default click behavior
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            
+        function runAway() {
             noBtnClicks++;
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
             
-            // Random position within viewport
+            // Random position within a larger area
             const maxX = window.innerWidth - 200;
             const maxY = window.innerHeight - 100;
             
-            const randomX = Math.max(0, Math.random() * maxX);
-            const randomY = Math.max(0, Math.random() * maxY);
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
@@ -475,17 +456,13 @@
                 'Noooo 😰',
                 'Come on! 🙏',
                 'Pretty please? 🥹',
-                'I\'m running! 🏃',
-                'You can\'t catch me! 😝',
-                'Stop trying! 😅',
-                'Give up! 😂'
+                'I\'m gonna cry! 🏃',
+                'You can\'t catch me! 😝'
             ];
             
             if (noBtnClicks < desperateTexts.length) {
                 noBtn.textContent = desperateTexts[noBtnClicks];
             }
-            
-            return false;
         }
 
         // Celebration!
