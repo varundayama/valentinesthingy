@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Will You Be My Valentine? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 25%, #ffd4ea 50%, #ffc8e4 75%, #ffb8dd 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Cute meme images in corners */
+        .meme-corner {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            z-index: 2;
+            animation: wiggle 3s infinite ease-in-out;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.05); }
+        }
+
+        .meme-tl {
+            top: 20px;
+            left: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFB6C1"/><circle cx="35" cy="40" r="5" fill="%23000"/><circle cx="65" cy="40" r="5" fill="%23000"/><path d="M 30 60 Q 50 75 70 60" stroke="%23000" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="45" rx="8" ry="10" fill="%23FF69B4" opacity="0.5"/><ellipse cx="75" cy="45" rx="8" ry="10" fill="%23FF69B4" opacity="0.5"/></svg>');
+        }
+
+        .meme-tr {
+            top: 20px;
+            right: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFD700"/><circle cx="35" cy="40" r="8" fill="%23000"><animate attributeName="r" values="8;2;8" dur="2s" repeatCount="indefinite"/></circle><circle cx="65" cy="40" r="8" fill="%23000"><animate attributeName="r" values="8;2;8" dur="2s" repeatCount="indefinite"/></circle><path d="M 25 60 Q 50 80 75 60" stroke="%23000" stroke-width="3" fill="none"/><text x="50" y="30" font-size="25" text-anchor="middle">💕</text></svg>');
+            animation-delay: 0.5s;
+        }
+
+        .meme-bl {
+            bottom: 20px;
+            left: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FF1493"/><circle cx="35" cy="45" r="6" fill="%23FFF"/><circle cx="65" cy="45" r="6" fill="%23FFF"/><circle cx="37" cy="45" r="3" fill="%23000"/><circle cx="67" cy="45" r="3" fill="%23000"/><path d="M 35 60 L 40 68 L 45 60 M 55 60 L 60 68 L 65 60" stroke="%23000" stroke-width="2" fill="none"/></svg>');
+            animation-delay: 1s;
+        }
+
+        .meme-br {
+            bottom: 20px;
+            right: 20px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFA500"/><circle cx="38" cy="45" r="4" fill="%23000"/><circle cx="62" cy="45" r="4" fill="%23000"/><ellipse cx="50" cy="60" rx="15" ry="10" fill="%23000"/><ellipse cx="50" cy="60" rx="13" ry="8" fill="%23FF69B4"/><path d="M 30 35 Q 35 30 40 35" stroke="%23000" stroke-width="2" fill="none"/><path d="M 60 35 Q 65 30 70 35" stroke="%23000" stroke-width="2" fill="none"/></svg>');
+            animation-delay: 1.5s;
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            max-width: 600px;
+            border: 5px solid #FF69B4;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5em;
+            color: #FF1493;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #D946A6;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .name {
+            color: #FF1493;
+            font-size: 1.2em;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            position: relative;
+            min-height: 80px;
+        }
+
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5em;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            color: white;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 20, 147, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
+            color: #4B5563;
+            position: absolute;
+            transition: all 0.15s;
+        }
+
+        .no-btn:hover {
+            background: linear-gradient(135deg, #9CA3AF, #6B7280);
+        }
+
+        /* Celebration screen */
+        .celebration {
+            text-align: center;
+        }
+
+        .celebration h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            animation: rainbow 3s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #FF1493; }
+            25% { color: #FF69B4; }
+            50% { color: #FFB6C1; }
+            75% { color: #FF69B4; }
+            100% { color: #FF1493; }
+        }
+
+        .celebration-message {
+            font-size: 1.8em;
+            color: #D946A6;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .mind-blown-meme {
+            width: 400px;
+            height: auto;
+            margin: 30px auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+            animation: explode 1s ease-out;
+            display: block;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: #FF1493;
+            position: fixed;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 100;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .emoji-rain {
+            position: fixed;
+            font-size: 30px;
+            animation: emoji-fall 3s linear forwards;
+            z-index: 100;
+        }
+
+        @keyframes emoji-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartBg"></div>
+    
+    <div class="meme-corner meme-tl"></div>
+    <div class="meme-corner meme-tr"></div>
+    <div class="meme-corner meme-bl"></div>
+    <div class="meme-corner meme-br"></div>
+
+    <div class="container" id="questionScreen">
+        <h1>💕 Valentine's Day 💕</h1>
+        <img src="https://media1.tenor.com/m/Vg9ZUFb2XxgAAAAd/perro.gif" alt="Cute dog" style="width: 300px; height: auto; border-radius: 20px; margin: 20px auto; display: block; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);">
+        <p class="question">
+            Hey <span class="name">Kesha</span>!! 💖<br>
+            Will you be my Valentine?
+        </p>
+        <div class="buttons">
+            <button class="yes-btn" onclick="celebrate()">Yes! 💕</button>
+            <button class="no-btn" id="noBtn" onmouseover="runAway()" onclick="runAway()">No 😢</button>
+        </div>
+    </div>
+
+    <div class="container celebration hidden" id="celebrationScreen">
+        <h1>🎉 YAAAAY! 🎉</h1>
+        <p class="celebration-message">
+            I knew you'd say yes! 😍<br>
+            I mean... the "No" button was shy! 😂<br>
+            Now get ready for cuddles, terrible jokes, and me being annoyingly cute! 💕<br>
+            Warning: May cause excessive happiness and spontaneous smiling! ⚠️
+        </p>
+        <img src="https://media.tenor.com/OEQ8NOhu2nwAAAAj/mind-blown-mind-explosion.gif" alt="Mind Blown!" class="mind-blown-meme">
+    </div>
+
+    <script>
+        // Create floating hearts background
+        const heartBg = document.getElementById('heartBg');
+        const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘'];
+        
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heartBg.appendChild(heart);
+        }
+
+        // No button escapes!
+        const noBtn = document.getElementById('noBtn');
+        let noBtnClicks = 0;
+
+        function runAway() {
+            noBtnClicks++;
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Random position within a larger area
+            const maxX = window.innerWidth - 200;
+            const maxY = window.innerHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Make the button smaller and more desperate
+            const scale = Math.max(0.5, 1 - (noBtnClicks * 0.1));
+            noBtn.style.transform = `scale(${scale})`;
+            
+            // Change text to get more desperate
+            const desperateTexts = [
+                'No 😢',
+                'Wait... 🥺',
+                'Please! 😭',
+                'Noooo 😰',
+                'Come on! 🙏',
+                'Pretty please? 🥹',
+                'I\'m gonna cry! 🏃',
+                'You can\'t catch me! 😝'
+            ];
+            
+            if (noBtnClicks < desperateTexts.length) {
+                noBtn.textContent = desperateTexts[noBtnClicks];
+            }
+        }
+
+        // Celebration!
+        function celebrate() {
+            const questionScreen = document.getElementById('questionScreen');
+            const celebrationScreen = document.getElementById('celebrationScreen');
+            
+            questionScreen.classList.add('hidden');
+            celebrationScreen.classList.remove('hidden');
+            
+            // Create confetti explosion!
+            createConfetti();
+            
+            // Play celebration sound (optional - would need audio file)
+            // const audio = new Audio('celebration.mp3');
+            // audio.play();
+        }
+
+        function createConfetti() {
+            const colors = ['#FF1493', '#FF69B4', '#FFB6C1', '#FF6B9D', '#FFC0CB', '#FFD700', '#FF1493'];
+            const emojis = ['💕', '💖', '💗', '💓', '💝', '❤️', '💘', '🎉', '🎊', '✨', '⭐', '💫', '🌟'];
+            
+            // Create 150 pieces of confetti
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    if (Math.random() > 0.5) {
+                        // Regular confetti
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.top = -20 + 'px';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                        document.body.appendChild(confetti);
+                        
+                        setTimeout(() => confetti.remove(), 3500);
+                    } else {
+                        // Emoji confetti
+                        const emoji = document.createElement('div');
+                        emoji.className = 'emoji-rain';
+                        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        emoji.style.left = Math.random() * 100 + '%';
+                        emoji.style.top = -20 + 'px';
+                        emoji.style.animationDelay = Math.random() * 0.5 + 's';
+                        emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                        document.body.appendChild(emoji);
+                        
+                        setTimeout(() => emoji.remove(), 3500);
+                    }
+                }, i * 20);
+            }
+        }
+    </script>
+</body>
+</html>
