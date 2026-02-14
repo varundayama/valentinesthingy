@@ -20,7 +20,9 @@
             align-items: center;
             background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 25%, #ffd4ea 50%, #ffc8e4 75%, #ffb8dd 100%);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 20px;
         }
 
         /* Floating hearts background */
@@ -46,16 +48,19 @@
             50% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        /* Cute meme images in corners */
+        /* Cute emoji corners */
         .meme-corner {
             position: fixed;
-            width: 150px;
-            height: 150px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.6;
+            font-size: 60px;
+            opacity: 0.7;
             z-index: 2;
             animation: wiggle 3s infinite ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .meme-corner {
+                font-size: 40px;
+            }
         }
 
         @keyframes wiggle {
@@ -66,27 +71,23 @@
         .meme-tl {
             top: 20px;
             left: 20px;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFB6C1"/><circle cx="35" cy="40" r="5" fill="%23000"/><circle cx="65" cy="40" r="5" fill="%23000"/><path d="M 30 60 Q 50 75 70 60" stroke="%23000" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="45" rx="8" ry="10" fill="%23FF69B4" opacity="0.5"/><ellipse cx="75" cy="45" rx="8" ry="10" fill="%23FF69B4" opacity="0.5"/></svg>');
         }
 
         .meme-tr {
             top: 20px;
             right: 20px;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFD700"/><circle cx="35" cy="40" r="8" fill="%23000"><animate attributeName="r" values="8;2;8" dur="2s" repeatCount="indefinite"/></circle><circle cx="65" cy="40" r="8" fill="%23000"><animate attributeName="r" values="8;2;8" dur="2s" repeatCount="indefinite"/></circle><path d="M 25 60 Q 50 80 75 60" stroke="%23000" stroke-width="3" fill="none"/><text x="50" y="30" font-size="25" text-anchor="middle">💕</text></svg>');
             animation-delay: 0.5s;
         }
 
         .meme-bl {
             bottom: 20px;
             left: 20px;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FF1493"/><circle cx="35" cy="45" r="6" fill="%23FFF"/><circle cx="65" cy="45" r="6" fill="%23FFF"/><circle cx="37" cy="45" r="3" fill="%23000"/><circle cx="67" cy="45" r="3" fill="%23000"/><path d="M 35 60 L 40 68 L 45 60 M 55 60 L 60 68 L 65 60" stroke="%23000" stroke-width="2" fill="none"/></svg>');
             animation-delay: 1s;
         }
 
         .meme-br {
             bottom: 20px;
             right: 20px;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFA500"/><circle cx="38" cy="45" r="4" fill="%23000"/><circle cx="62" cy="45" r="4" fill="%23000"/><ellipse cx="50" cy="60" rx="15" ry="10" fill="%23000"/><ellipse cx="50" cy="60" rx="13" ry="8" fill="%23FF69B4"/><path d="M 30 35 Q 35 30 40 35" stroke="%23000" stroke-width="2" fill="none"/><path d="M 60 35 Q 65 30 70 35" stroke="%23000" stroke-width="2" fill="none"/></svg>');
             animation-delay: 1.5s;
         }
 
@@ -96,11 +97,29 @@
             z-index: 10;
             text-align: center;
             background: rgba(255, 255, 255, 0.95);
-            padding: 60px 50px;
+            padding: 40px 30px;
             border-radius: 40px;
             box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            max-width: 90%;
+            width: 100%;
             max-width: 600px;
             border: 5px solid #FF69B4;
+            margin: auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 30px;
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                border-radius: 20px;
+            }
         }
 
         .hidden {
@@ -109,11 +128,24 @@
 
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 3.5em;
+            font-size: 2.5em;
             color: #FF1493;
             margin-bottom: 20px;
             text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.3);
             animation: pulse 2s infinite;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
         }
 
         @keyframes pulse {
@@ -122,10 +154,23 @@
         }
 
         .question {
-            font-size: 1.8em;
+            font-size: 1.5em;
             color: #D946A6;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-weight: 700;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .question {
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question {
+                font-size: 1.1em;
+            }
         }
 
         .name {
@@ -135,24 +180,46 @@
 
         .buttons {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             align-items: center;
-            margin-top: 40px;
+            margin-top: 30px;
             position: relative;
             min-height: 80px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .buttons {
+                gap: 15px;
+                margin-top: 20px;
+            }
         }
 
         button {
             font-family: 'Quicksand', sans-serif;
-            font-size: 1.5em;
-            padding: 20px 50px;
+            font-size: 1.3em;
+            padding: 15px 40px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.3s;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            button {
+                font-size: 1.1em;
+                padding: 12px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                font-size: 1em;
+                padding: 10px 25px;
+            }
         }
 
         .yes-btn {
@@ -188,9 +255,21 @@
         }
 
         .celebration h1 {
-            font-size: 4em;
+            font-size: 3em;
             margin-bottom: 30px;
             animation: rainbow 3s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .celebration h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .celebration h1 {
+                font-size: 2em;
+            }
         }
 
         @keyframes rainbow {
@@ -202,21 +281,62 @@
         }
 
         .celebration-message {
-            font-size: 1.8em;
+            font-size: 1.5em;
             color: #D946A6;
             margin-bottom: 30px;
             font-weight: 600;
             line-height: 1.6;
         }
 
+        @media (max-width: 768px) {
+            .celebration-message {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .celebration-message {
+                font-size: 1em;
+            }
+        }
+
         .mind-blown-meme {
             width: 400px;
+            max-width: 90%;
             height: auto;
             margin: 30px auto;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
             animation: explode 1s ease-out;
             display: block;
+        }
+
+        .dog-image {
+            width: 300px;
+            max-width: 90%;
+            height: auto;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .mind-blown-meme {
+                width: 300px;
+            }
+            .dog-image {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mind-blown-meme {
+                width: 250px;
+            }
+            .dog-image {
+                width: 200px;
+            }
         }
 
         @keyframes explode {
@@ -260,16 +380,16 @@
 <body>
     <div class="heart-bg" id="heartBg"></div>
     
-    <div class="meme-corner meme-tl"></div>
-    <div class="meme-corner meme-tr"></div>
-    <div class="meme-corner meme-bl"></div>
-    <div class="meme-corner meme-br"></div>
+    <div class="meme-corner meme-tl">💕</div>
+    <div class="meme-corner meme-tr">😍</div>
+    <div class="meme-corner meme-bl">💖</div>
+    <div class="meme-corner meme-br">🥰</div>
 
     <div class="container" id="questionScreen">
         <h1>💕 Valentine's Day 💕</h1>
-        <img src="https://media1.tenor.com/m/Vg9ZUFb2XxgAAAAd/perro.gif" alt="Cute dog" style="width: 300px; height: auto; border-radius: 20px; margin: 20px auto; display: block; box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);">
+        <img src="https://media1.tenor.com/m/Vg9ZUFb2XxgAAAAd/perro.gif" alt="Cute dog" class="dog-image">
         <p class="question">
-            Hey <span class="name">Kesha</span>!! 💖<br>
+            Hey <span class="name">Kesha</span>! 💖<br>
             Will you be my Valentine?
         </p>
         <div class="buttons">
@@ -282,8 +402,8 @@
         <h1>🎉 YAAAAY! 🎉</h1>
         <p class="celebration-message">
             I knew you'd say yes! 😍<br>
-            I mean... the "No" button was shy! 😂<br>
-            Now get ready for cuddles, terrible jokes, and me being annoyingly cute! 💕<br>
+            I mean... the "No" button was a lil shy! 😂<br>
+            Now get ready for unlimited cuddles, terrible jokes, and me being annoyingly cute! 💕<br>
             Warning: May cause excessive happiness and spontaneous smiling! ⚠️
         </p>
         <img src="https://media.tenor.com/OEQ8NOhu2nwAAAAj/mind-blown-mind-explosion.gif" alt="Mind Blown!" class="mind-blown-meme">
